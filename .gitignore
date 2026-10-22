@@ -32,5 +32,8 @@ docs/archive/
 docs/智能硬件系统课设报告.htm
 docs/智能硬件系统课设报告.files/
 
+# ===== 厂家(华清远见)的产品手册,版权不属于本项目,仅本地查阅 =====
+docs/参考资料/FS_EMB6818使用手册.md
+
 # ===== 另一个项目 IoT Bridge(与本课设无关,仅本地保留) =====
 ControllerRelease/
