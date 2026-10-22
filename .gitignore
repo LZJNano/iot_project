@@ -25,5 +25,8 @@ moc_*.cpp
 # ===== Obsidian =====
 docs/.obsidian/
 
+# ===== 归档:开发过程笔记 / 答辩材料,只留本地 =====
+docs/archive/
+
 # ===== 另一个项目 IoT Bridge(与本课设无关,仅本地保留) =====
 ControllerRelease/

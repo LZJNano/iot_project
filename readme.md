@@ -120,6 +120,26 @@ linux@ubuntu64-vm:/source/rootfs$ pwd
 - **Ubuntu 虚拟机（broker）**：跑 Mosquitto broker（192.168.100.192:1883），设备端和控制端都连它。
 - **Windows（控制端）**：`Controller/` 下的 Qt 4.8 图形界面程序，左栏是温湿度实时显示和控制按钮，右栏是实验箱面板的仿真视图（点按钮右栏会同步变化）。
 
+![实验箱实物与虚拟机接线](docs/images/labbox-and-vm.png)
+
+### 控制端界面
+
+![Controller 控制端界面](docs/images/controller-gui.png)
+
+左栏是 MQTT 连接设置、温湿度实时读数和各类外设的控制按钮，右栏是实验箱面板的仿真视图 —— 点左边按钮，右边的 LCD、LED 会跟着变。
+
+### 系统架构
+
+![系统总体架构图](docs/images/architecture.png)
+
+设备端软件跑在实验箱的嵌入式 Linux 上，通过网线和 NFS 共享根文件系统；MQTT broker 跑在 Ubuntu 虚拟机里（`mosquitto_loop` 守护）；控制端是 Windows 上的 Qt 程序。三者之间用标准 MQTT 协议通信，虚拟机同时充当实验箱的根文件系统服务器。实验箱还通过串口接实验室电脑，用 PuTTY 看启动日志。
+
+![软件设计](docs/images/software-design.png)
+
+设备端的软件内部结构：`on_ctrl_message()` 把收到的 MQTT 命令分发到各外设驱动，DHT11 采集线程把温湿度发布出去。
+
+![数据流](docs/images/dataflow.png)
+
 已实现的外设控制，命令字符串直接用 `mosquitto_pub -t s5p6818/device/ctrl -m "命令"` 就能测：
 
 | 外设 | 命令 |
@@ -131,9 +151,10 @@ linux@ubuntu64-vm:/source/rootfs$ pwd
 
 课程设计报告在 `docs/`，共 9 章（任务书、设备端实现、broker 端实现、控制端实现、课设效果、总结、附录）。
 
-**上交用的报告原文**在 `docs/2024011184-刘子健-智能硬件系统课设报告.htm`
+**上交用的报告原文**在 [`docs/智能硬件系统课设报告.htm`](docs/智能硬件系统课设报告.htm)
 （Word 导出的单文件 HTML，配套图片在同名 `.files/` 目录里，浏览器直接打开即可）。
 上面那些 `.md` 是原文对应的 Markdown 版本，方便在 GitHub 上直接阅读。
+`docs/images/` 里是从原文中挑出来的几张图，供本 README 引用。
 
 ## 仓库结构
 
@@ -152,7 +173,7 @@ iot_project/
 │   └── Makefile          arm-linux-gcc 交叉编译
 ├── Controller/           控制端 Qt 4.8 GUI（qmake 工程）
 ├── install/              预编译的 ARM libmosquitto.so.0 + mosquitto.h
-├── docs/                 课程设计报告（9 章 Markdown + 上交用 HTML 原文）+ 任务书 + 厂家参考资料
+├── docs/                 课程设计报告（9 章 Markdown + 上交用 HTML 原文 + 配图）+ 任务书 + 厂家参考资料
 ├── build_and_deploy.sh   设备端：交叉编译 + 部署到实验箱 NFS 根文件系统
 ├── build_libmosq.sh      交叉编译 libmosquitto 0.15 到 install/
 └── readme.md
