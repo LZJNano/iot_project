@@ -183,3 +183,7 @@ broker 地址默认写在 `src/config.h` 的 `MQTT_HOST`，也可以用命令行
 > `mqtt_iot` 启动时会自己 `mknod /dev/dht11 c 804 0` 建节点，不需要手动干预。
 
 控制端的编译方法和端到端自测脚本见 `Controller/README.md`。
+
+## 许可协议
+
+MIT,见 [LICENSE](LICENSE)。
