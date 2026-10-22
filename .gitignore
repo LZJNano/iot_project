@@ -28,5 +28,9 @@ docs/.obsidian/
 # ===== 归档:开发过程笔记 / 答辩材料,只留本地 =====
 docs/archive/
 
+# ===== Word 导出的报告原文(仓库里用 docs/智能硬件系统课设报告.md 即可) =====
+docs/智能硬件系统课设报告.htm
+docs/智能硬件系统课设报告.files/
+
 # ===== 另一个项目 IoT Bridge(与本课设无关,仅本地保留) =====
 ControllerRelease/
