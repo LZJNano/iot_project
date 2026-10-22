@@ -75,7 +75,7 @@ broker 地址默认写在 [`src/config.h`](src/config.h) 的 `MQTT_HOST`，也�
 /source/rootfs/root/mqtt_iot/mqtt_iot 192.168.100.192
 ```
 
-### 3. 控制端：编译并运行（Windows 上执行）
+### 3. 控制端：编译并运行（Ubuntu 虚拟机上执行）
 
 ```powershell
 qmake Controller.pro
