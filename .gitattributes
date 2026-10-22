@@ -1,0 +1,7 @@
+# 仓库内统一以 LF 存储,避免在 Windows 上被 autocrlf 改写
+* text=auto
+
+# 以下几类必须在任何平台都保持 LF,否则 Linux 上 bash / make 会报错
+*.sh        text eol=lf
+Makefile    text eol=lf
+*.pro       text eol=lf
