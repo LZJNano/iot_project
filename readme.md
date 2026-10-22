@@ -131,6 +131,10 @@ linux@ubuntu64-vm:/source/rootfs$ pwd
 
 课程设计报告在 `docs/`，共 9 章（任务书、设备端实现、broker 端实现、控制端实现、课设效果、总结、附录）。
 
+**上交用的报告原文**在 `docs/2024011184-刘子健-智能硬件系统课设报告.htm`
+（Word 导出的单文件 HTML，配套图片在同名 `.files/` 目录里，浏览器直接打开即可）。
+上面那些 `.md` 是原文对应的 Markdown 版本，方便在 GitHub 上直接阅读。
+
 ## 仓库结构
 
 ```
@@ -148,7 +152,7 @@ iot_project/
 │   └── Makefile          arm-linux-gcc 交叉编译
 ├── Controller/           控制端 Qt 4.8 GUI（qmake 工程）
 ├── install/              预编译的 ARM libmosquitto.so.0 + mosquitto.h
-├── docs/                 课程设计报告（9 章）+ 任务书 + 厂家参考资料
+├── docs/                 课程设计报告（9 章 Markdown + 上交用 HTML 原文）+ 任务书 + 厂家参考资料
 ├── build_and_deploy.sh   设备端：交叉编译 + 部署到实验箱 NFS 根文件系统
 ├── build_libmosq.sh      交叉编译 libmosquitto 0.15 到 install/
 └── readme.md
