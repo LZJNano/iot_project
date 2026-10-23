@@ -3,18 +3,18 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![课程设计报告](https://img.shields.io/badge/%E8%AF%BE%E8%AE%BE%E6%8A%A5%E5%91%8A-Markdown-blue.svg)](docs/智能硬件系统课设报告.md)
 
-一套跑在真实硬件上的物联网系统：实验箱上的嵌入式 C 程序采集传感器数据、执行控制指令，Ubuntu 虚拟机做 MQTT broker，Windows 上的 Qt 程序做图形化控制端。
+一套为“智能硬件系统 课程设计”课程设计的物联网系统：实验箱上的嵌入式 C 程序采集传感器数据、执行控制指令，Ubuntu 虚拟机运行 MQTT broker 服务器和 Qt 图形化控制程序。
 
 > **📄 课程设计报告（9 章，含环境搭建、代码实现、实验效果与总结）**
 > **[`docs/智能硬件系统课设报告.md`](docs/智能硬件系统课设报告.md)**
 
-## 三个角色
+## 主要程序
 
-| 角色 | 跑在哪 | 干什么 |
+| 程序 | 运行环境 | 内容 |
 | --- | --- | --- |
 | 设备端 `mqtt_iot` | 实验箱 FS_EMB6818（S5P6818 ARM + 嵌入式 Linux） | 每 5 s 读一次 DHT11 并发布；订阅控制主题，把命令分发给各外设 |
 | Broker | Ubuntu 虚拟机（Mosquitto） | 消息中转站，设备端和控制端都连它 |
-| 控制端 `Controller` | Windows（Qt 4.8 GUI） | 温湿度实时显示 + 外设控制按钮 + 实验箱面板仿真预览 |
+| 控制端 `Controller` | Ubuntu 虚拟机（Qt 4.8 GUI） | 温湿度实时显示 + 外设控制按钮 + 实验箱面板仿真预览 |
 
 三者之间只走标准 MQTT，两个方向的数据流：
 
@@ -39,7 +39,7 @@
 
 ![系统总体架构图](docs/images/architecture.png)
 
-设备端跑在实验箱的嵌入式 Linux 上，通过网线和 NFS 共享根文件系统；broker 跑在 Ubuntu 虚拟机里；控制端是 Windows 上的 Qt 程序。虚拟机同时充当实验箱的根文件系统服务器，实验箱还通过串口接实验室电脑，用 PuTTY 看启动日志。
+设备端跑在实验箱的嵌入式 Linux 上，通过网线和 NFS 共享根文件系统；broker 和控制端程序 Controller 跑在 Ubuntu 虚拟机里。虚拟机同时充当实验箱的根文件系统服务器，实验箱还通过串口接实验室电脑，用 PuTTY （Windows）看启动日志。
 
 ### 软件设计与数据流
 
@@ -110,8 +110,8 @@ mosquitto_pub -h 192.168.100.192 -t s5p6818/device/ctrl -m "led_on"             
 | 设备 | 型号 | 在系统里的角色 |
 | --- | --- | --- |
 | 实验箱（下位机） | 华清远见 FS_EMB6818，8 核 Cortex-A53 | 设备端 `mqtt_iot` 的运行平台 |
-| 宿主机（上位机） | Windows 10 + VMware | 跑控制端，接串口和网线 |
-| 虚拟机 | Ubuntu 12.04 64-bit | 跑 broker、NFS、设备端交叉工具链 |
+| 宿主机（上位机） | Windows 10 + VMware | 接串口和网线 |
+| 虚拟机 | Ubuntu 12.04 64-bit | 跑 broker、NFS、设备端交叉工具链和控制端软件 |
 
 VMware 有两种网络模式，用途不同：
 
